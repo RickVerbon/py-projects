@@ -1,13 +1,11 @@
 import random
 
 exit = False
-
 choices = ["Rock", "Paper", "Scissors"]
 
 while not exit:
     opponentChoice = random.choice(choices)
     playerChoice = input("Rock, paper, scissors?: ")
-
     if(playerChoice == opponentChoice):
         print("It's a draw")
         print("")
@@ -19,6 +17,3 @@ while not exit:
     else:
         print(f"{opponentChoice} beats {playerChoice}, computer won.")
         print("")
-        
-
-
