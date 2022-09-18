@@ -1,4 +1,3 @@
-from re import U
 import sqlite3
 
 exit = False
