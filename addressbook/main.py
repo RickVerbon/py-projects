@@ -20,6 +20,10 @@ def create_contact(name, phone_number, email, address="", city=""):
     cur.execute("INSERT INTO contacts (name, phonenumber, email, address, city) VALUES (?, ?, ?, ?, ?)", (name, phone_number, email, address, city))
     print("Contact created successfully")
 
+def remove_contact(name):
+    cur.execute("DELETE FROM contacts WHERE name = ?", (name))
+    print(f"Contact '{name}' deleted successfully.")
+
 
 while not exit:
     print("Welcome to the addressbook, enter your command here. type 'help' for help.")
@@ -44,8 +48,7 @@ while not exit:
     elif(userinput == "del"):
         
         name = input("Enter contacts name to delete the contact: ")
-        query = ("DELETE FROM contacts WHERE name = 'Rick'")
-        print(f"Contact '{name}' deleted successfully.")
+        remove_contact(name)
         con.commit()
 
     elif(userinput == 'x'):
