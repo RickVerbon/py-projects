@@ -4,6 +4,8 @@ exit = False
 
 conn = sqlite3.connect("addressbook/addressbook.db")
 cur = conn.cursor()
+
+#Line below creates the table.
 #cur.execute("CREATE TABLE contacts (id INTEGER PRIMARY KEY AUTOINCREMENT, name, phonenumber, email, address, city)")  
 
 class Contact():
