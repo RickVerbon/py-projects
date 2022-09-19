@@ -4,11 +4,19 @@ def add_todo(todo):
     todos.append(todo)
 
 def remove_todo(todo):
-    todos.remove(todo)
+    if(todo not in todos):
+        print(f"Todo '{todo} is not in the list")
+    else:    
+        todos.remove(todo)
+        print(f"Removed '{todo}' successfully")
 
 def change_todo(todo, newTodo):
-    i = todos.index(todo);
-    todos[i] = newTodo
+    if(todo not in todos):
+        print(f"Todo '{todo} is not in the list")
+    else:    
+        i = todos.index(todo)
+        todos[i] = newTodo
+        print(f"Changed todo '{todo}' to {newTodo}")
 
 
 while True:
@@ -35,4 +43,4 @@ while True:
         print("")
         
     else:
-        print("Unknow command")
+        print("Unknown command")
