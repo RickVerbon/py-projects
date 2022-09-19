@@ -2,8 +2,8 @@ import sqlite3
 
 exit = False
 
-con = sqlite3.connect("addressbook/addressbook.db")
-cur = con.cursor()
+conn = sqlite3.connect("addressbook/addressbook.db")
+cur = conn.cursor()
 #cur.execute("CREATE TABLE contacts (id INTEGER PRIMARY KEY AUTOINCREMENT, name, phonenumber, email, address, city)")  
 
 class Contact():
@@ -22,8 +22,9 @@ def create_contact(name, phone_number, email, address="", city=""):
 
 def remove_contact(name):
     #delete func
-    cur.execute("DELETE FROM contacts WHERE name = ?", (name))
+    cur.execute("DELETE FROM contacts WHERE name=?", (name,)) #Comma after variable is necessary.
     print(f"Contact '{name}' deleted successfully.")
+    conn.commit()
 
 
 while not exit:
@@ -31,6 +32,7 @@ while not exit:
     userinput = input("- ")
     if(userinput == "help"):
         print("- add   |   Add a new contact to the addressbook.")
+        print("- del   |   Remove contacts from addressbook.")
         print("- get   |   Get contacts from addressbook.")
     elif(userinput == "add"):
         name = input("Contact's name: ")
@@ -39,21 +41,27 @@ while not exit:
         address = input("Contact's address: ")
         city = input("Contact's city: ")
         create_contact(name, phone, email, address, city)
-        con.commit()
+        conn.commit()
         
     elif(userinput == "get"):
         res = cur.execute("SELECT * FROM contacts")
         x = res.fetchall()
+        print("")
+        print("----------------------All Contacts--------------------")
         for i in x:
-            print(f"{i[1]} - {i[2]} - {i[3]}")
+            #snap hiet nog niets van. :D
+            formatted_line = '{:<12} {:<15} {:<10}'.format(i[1], i[2], i[3])
+            print(formatted_line)
+        print("--------------------End of Contacts--------------------")
+        print("")
     elif(userinput == "del"):
         
         name = input("Enter contacts name to delete the contact: ")
         remove_contact(name)
-        con.commit()
+        conn.commit()
 
     elif(userinput == 'x'):
-        con.close()
+        conn.close()
         exit = True
     else:
         print(f"Command '{userinput} does not exist.")
