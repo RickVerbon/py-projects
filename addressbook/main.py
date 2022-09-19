@@ -21,6 +21,7 @@ def create_contact(name, phone_number, email, address="", city=""):
     print("Contact created successfully")
 
 def remove_contact(name):
+    #delete func
     cur.execute("DELETE FROM contacts WHERE name = ?", (name))
     print(f"Contact '{name}' deleted successfully.")
 
