@@ -7,7 +7,6 @@ cur = conn.cursor()
 
 #Line below creates the table.
 #cur.execute("CREATE TABLE contacts (id INTEGER PRIMARY KEY AUTOINCREMENT, name, phonenumber, email, address, city)")  
-    
 
 def create_contact(name, phone_number, email, address="", city=""):
     #write to sql database
