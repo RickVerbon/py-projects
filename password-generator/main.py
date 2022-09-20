@@ -11,5 +11,10 @@ def generate_password(len):
     return newPassword
 
 while not exit:
-    length = int(input("Length of the password: "))
-    print(f"Your new password is: {generate_password((length))}")
+    length = input("Length of the password: ")
+    if(length.isnumeric()):
+        print(f"Your new password is: {generate_password((int(length)))}")
+    elif length == "x":
+        exit = True
+    else:
+        print("Please enter a number")
