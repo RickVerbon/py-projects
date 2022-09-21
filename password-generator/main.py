@@ -10,7 +10,7 @@ exit = False
 chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()*+-./:;<=>?"
 
 def generate_password(len):
-    newPassword = ""
+    newPassword = None
     for i in range(len):
         rnd = random.choice(chars)
         newPassword += rnd
@@ -82,5 +82,3 @@ while not exit:
 
     elif(choice == "list"):
         list_apps()
-        
-        
