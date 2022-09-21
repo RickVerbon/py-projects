@@ -20,6 +20,31 @@ def store_password(app, username, password):
     cur.execute("INSERT INTO passwords (app, username, password) VALUES (?, ?, ?)", (app, username, encode_password(password)))
     conn.commit()
 
+def get_password(app):
+    res = cur.execute("SELECT password FROM passwords WHERE app=?", (app,))
+    x = res.fetchone()
+    if x is None:
+        print("No password found for " + app)
+        return
+    else: 
+        for i in x:
+            password = decode_password(i)
+            pc.copy(password)
+            print(f"Copied password for {app} to the clipboard. Use CTRL-V to paste the password")   
+        return password
+
+def delete_password(app):
+    cur.execute("DELETE FROM passwords WHERE app=?", (app,))
+    conn.commit()
+
+def list_apps():
+    id = 1
+    res = cur.execute("SELECT app FROM passwords")
+    x = res.fetchall()
+    for i in x:
+        print(f"{id}: {i[0]}")
+        id += 1
+
 def encode_password(password):
     password_bytes = password.encode('ascii')
     base64_bytes = base64.b64encode(password_bytes)
@@ -49,15 +74,13 @@ while not exit:
             print("Please enter a number")
     elif(choice == "get"):
         app = input("For which app do you want to request your password?: ")
-        res = cur.execute("SELECT password FROM passwords WHERE app=?", (app,))
-        x = res.fetchone()
-        for i in x:
-            password = decode_password(i)
-            pc.copy(password)
-            print(f"Copied password for {app} to the clipboard. Use CTRL-V to paste the password")   
-    elif(choice == "clearall"):
-        cur.execute("DELETE FROM passwords")
-        conn.commit() 
+        get_password(app)
+    
+    elif(choice == "del"):
+        app = input("For which app do you want to delete the password?: ")
+        delete_password(app)
 
+    elif(choice == "list"):
+        list_apps()
         
         
